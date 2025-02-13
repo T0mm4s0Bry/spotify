@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, redirect, url_for
 from services.spotify_oauth import get_spotify_object
 import spotipy
 
@@ -13,20 +13,26 @@ def home():
     try:
         user_info = sp.current_user()
         playlists = sp.current_user_playlists()["items"]
-    except Exception:
+    except Exception as e:
+        print("Error while fetching user data:", e)  # Log dell'errore per il debug
         return redirect(url_for("auth.login"))
 
     return render_template("home.html", user_info=user_info, playlists=playlists)
 
-
+@home_bp.route('/playlist/<playlist_id>')
 def playlist(playlist_id):
-    sp = get_spotify_client()
+    sp = get_spotify_object()
     if not isinstance(sp, spotipy.Spotify):
         return sp  
-    
+
     try:
+        # Ottieni i dati della playlist specifica
         playlist_data = sp.playlist(playlist_id)
+        print("Playlist data:", playlist_data)  # Log del contenuto della playlist
         tracks_data = playlist_data["tracks"]["items"]
+        print("Tracks data:", tracks_data)  # Log dei dati delle tracce
+
+        # Prepara i dati delle tracce per il template
         tracks = [
             {
                 "name": track["track"]["name"],
@@ -36,7 +42,9 @@ def playlist(playlist_id):
             }
             for track in tracks_data if track.get("track")
         ]
-    except Exception:
+        print("Formatted tracks:", tracks)  # Log del formato finale delle tracce
+    except Exception as e:
+        print("Error while fetching playlist data:", e)  # Log dell'errore per il debug
         return redirect(url_for("auth.login"))
 
     return render_template("playlist.html", tracks=tracks)
