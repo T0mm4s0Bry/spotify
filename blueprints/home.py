@@ -14,7 +14,7 @@ def home():
         user_info = sp.current_user()
         playlists = sp.current_user_playlists()["items"]
     except Exception as e:
-        print("Error while fetching user data:", e)  # Log dell'errore per il debug
+        print("Error while fetching user data:", e)
         return redirect(url_for("auth.login"))
 
     return render_template("home.html", user_info=user_info, playlists=playlists)
@@ -26,13 +26,13 @@ def playlist(playlist_id):
         return sp  
 
     try:
-        # Ottieni i dati della playlist specifica
-        playlist_data = sp.playlist(playlist_id)
-        print("Playlist data:", playlist_data)  # Log del contenuto della playlist
-        tracks_data = playlist_data["tracks"]["items"]
-        print("Tracks data:", tracks_data)  # Log dei dati delle tracce
 
-        # Prepara i dati delle tracce per il template
+        playlist_data = sp.playlist(playlist_id)
+        print("Playlist data:", playlist_data)
+        tracks_data = playlist_data["tracks"]["items"]
+        print("Tracks data:", tracks_data)
+
+
         tracks = [
             {
                 "name": track["track"]["name"],
@@ -42,9 +42,9 @@ def playlist(playlist_id):
             }
             for track in tracks_data if track.get("track")
         ]
-        print("Formatted tracks:", tracks)  # Log del formato finale delle tracce
+        print("Formatted tracks:", tracks)
     except Exception as e:
-        print("Error while fetching playlist data:", e)  # Log dell'errore per il debug
+        print("Error while fetching playlist data:", e) 
         return redirect(url_for("auth.login"))
 
     return render_template("playlist.html", tracks=tracks)

@@ -1,4 +1,3 @@
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -16,9 +15,8 @@ h1, h2, h3, h4 {
     font-weight: normal;
 }
 
-/* Header Styling */
 header {
-    background-color: #1db954;  /* Spotify Green */
+    background-color: #1db954;
     padding: 20px;
     color: white;
     text-align: center;
@@ -30,14 +28,14 @@ header h1 {
     font-size: 2.5rem;
 }
 
-/* Base Page Layout */
+
 .container {
     width: 80%;
     margin: 0 auto;
     padding: 20px 0;
 }
 
-/* Home Page Styling */
+
 #profile-section {
     text-align: center;
     margin-top: 20px;
@@ -95,10 +93,10 @@ header h1 {
 }
 
 #playlist-section ul li a:hover {
-    color: #1db954;  /* Spotify Green */
+    color: #1db954; 
 }
 
-/* Playlist Page Styling */
+
 #track-list {
     margin-top: 30px;
 }
@@ -144,14 +142,14 @@ header h1 {
 
 #track-list ul li a {
     text-decoration: none;
-    color: #1db954; /* Spotify Green */
+    color: #1db954;
 }
 
 #track-list ul li a:hover {
-    color: #1a9f44; /* Darker green on hover */
+    color: #1a9f44; 
 }
 
-/* Footer Styling */
+
 footer {
     background-color: #333;
     color: white;
@@ -169,7 +167,7 @@ footer a:hover {
     color: #1a9f44;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .container {
         width: 90%;
